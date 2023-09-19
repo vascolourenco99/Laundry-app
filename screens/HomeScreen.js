@@ -7,12 +7,18 @@ import {
   Image,
   SafeAreaView,
   TextInput,
+  ScrollView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import * as Location from "expo-location";
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
+
 import Carousel from "../components/Carousel";
 import Services from "../components/Services";
+
+import { products } from "../data/products.js";
+import DressItem from "../components/DressItem";
+
 
 const HomeScreen = () => {
   const [displayCurrentAddress, setDisplayCurrentAddress] = useState(
@@ -81,7 +87,7 @@ const HomeScreen = () => {
   };
 
   return (
-    <SafeAreaView style={{backgroundColor:"#F0F0F0"}}>
+    <ScrollView style={{ backgroundColor: "#F0F0F0" }}>
       {/* Location and Profile */}
       <View
         style={{
@@ -125,10 +131,16 @@ const HomeScreen = () => {
       </View>
 
       {/* Image Carousel */}
-      <Carousel/>
+      <Carousel />
+      <Services />
 
-      <Services/>
-    </SafeAreaView>
+      {/* Products */}
+      {products.map((product, index) => (
+        <View key={index} style={{margin:10}}>
+          <DressItem product={product} />
+        </View>
+      ))}
+    </ScrollView>
   );
 };
 
