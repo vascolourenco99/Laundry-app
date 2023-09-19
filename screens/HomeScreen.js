@@ -15,10 +15,11 @@ import { Ionicons, FontAwesome } from "@expo/vector-icons";
 
 import Carousel from "../components/Carousel";
 import Services from "../components/Services";
-
-import { products } from "../data/products.js";
 import DressItem from "../components/DressItem";
 
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../ProductReducer";
+import { products } from "../data/products.js";
 
 const HomeScreen = () => {
   const [displayCurrentAddress, setDisplayCurrentAddress] = useState(
@@ -86,6 +87,23 @@ const HomeScreen = () => {
     }
   };
 
+  // vamos à store buscar a store cart e depois vamos buscar o initial value ao reducer
+  const cart = useSelector((state) => state.cart.cart);
+
+  const product = useSelector((state) => state.product.product);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (product.length > 0) return;
+
+    const fetchProducts = () => {
+      products.map((product) => dispatch(getProducts(product)));
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
     <ScrollView style={{ backgroundColor: "#F0F0F0" }}>
       {/* Location and Profile */}
@@ -135,8 +153,8 @@ const HomeScreen = () => {
       <Services />
 
       {/* Products */}
-      {products.map((product, index) => (
-        <View key={index} style={{margin:10}}>
+      {product.map((product, index) => (
+        <View key={index} style={{ margin: 10 }}>
           <DressItem product={product} />
         </View>
       ))}
