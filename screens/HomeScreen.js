@@ -20,8 +20,10 @@ import DressItem from "../components/DressItem";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../ProductReducer";
 import { products } from "../data/products.js";
+import { useNavigation } from "@react-navigation/native";
 
 const HomeScreen = () => {
+  const navigation = useNavigation();
   // vamos à store buscar a store cart e depois vamos buscar o initial value ao reducer
   const cart = useSelector((state) => state.cart.cart);
   const product = useSelector((state) => state.product.product);
@@ -191,7 +193,9 @@ const HomeScreen = () => {
             </Text>
           </View>
 
-          <Pressable>
+          <Pressable
+            onPress={() => navigation.navigate("PickUp")}
+          >
             <Text style={{fontSize:17, fontWeight:"600", color: "white"}}>Proceed to pickup</Text>
           </Pressable>
         </Pressable>
