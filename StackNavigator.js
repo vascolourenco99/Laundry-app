@@ -14,7 +14,7 @@ const StackNavigator = () => {
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} options={{headerShown:false}}/>
         <Stack.Screen name="PickUp" component={PickUpScreen}/>
-        <Stack.Screen name="Cart" component={CartScreen}/>
+        <Stack.Screen name="Cart" component={CartScreen} options={{headerShown:false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
